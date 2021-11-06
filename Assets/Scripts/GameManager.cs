@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     public SpawnManager[] zones;
     public static System.Action onPickup;
     public static System.Action onPhoneCall;
-
+    private static bool gameOver = false;
     private static List<Alfajor> alfajores;
     public Phone phone;
 
@@ -117,4 +118,29 @@ public class GameManager : MonoBehaviour
             if(alfajor != null) alfajor.transform.GetComponent<BoxCollider>().enabled = flag;        
         }
     }
+
+    public static void EndGame()
+    {
+        if(!gameOver)
+        {
+            gameOver = true;
+            UIHandler.instance.FadeInImage(1f,UIHandler.instance.blackforeground);
+            UIHandler.instance.DisplayGameOverMessage();
+        }
+    }
+
+    static IEnumerator GoToMainScreen()
+    {
+        yield return new WaitForSeconds(10f);
+        SceneManager.LoadScene(0);
+    }
+
+    private void Update() {
+        if(gameOver)
+        {
+            gameOver = false;
+            StartCoroutine(GoToMainScreen());
+        }
+    }
+    
 }

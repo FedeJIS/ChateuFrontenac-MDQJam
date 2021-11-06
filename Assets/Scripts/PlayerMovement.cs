@@ -82,37 +82,30 @@ public class PlayerMovement : MonoBehaviour
         }
         
         Vector3 move = transform.right * x + transform.forward * z;
-        if(GameManager.currentAlfajores < 12)
+        if(move != Vector3.zero && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && canRun)
         {
-            if(move != Vector3.zero && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && canRun)
-            {
-            currentEnergy -= Time.deltaTime*2;
-            audioSource.clip = sfxClips[1];
-            controller.Move(move * speed * run * Time.deltaTime);
-            handAnimator.SetBool("isRunning",true); 
-            }else
-            {
-                if(currentEnergy < sprintEnergy){ currentEnergy += Time.deltaTime/2;}
-                audioSource.clip = sfxClips[0];
-                controller.Move(move * speed * Time.deltaTime);
-                handAnimator.SetBool("isRunning",false); 
-            }
+        currentEnergy -= Time.deltaTime*2;
+        audioSource.clip = sfxClips[1];
+        controller.Move(move * speed * run * Time.deltaTime);
+        handAnimator.SetBool("isRunning",true); 
+        }else
+        {
+            if(currentEnergy < sprintEnergy){ currentEnergy += Time.deltaTime/2;}
+            audioSource.clip = sfxClips[0];
+            controller.Move(move * speed * Time.deltaTime);
+            handAnimator.SetBool("isRunning",false); 
+        }
 
-            if(currentEnergy <= 0) canRun = false;
-            else if(currentEnergy >= sprintEnergy/2) canRun = true;
-        }
-        else
-        {
-            audioSource.clip = sfxClips[1];
-            controller.Move(move * speed * run * Time.deltaTime);
-            handAnimator.SetBool("isRunning",true); 
-        }
+        if(currentEnergy <= 0) canRun = false;
+        else if(currentEnergy >= sprintEnergy/2) canRun = true;
+
+        if(GameManager.currentAlfajores >=12) currentEnergy = 10;
         if(Input.GetKey(KeyCode.F)) 
         {
             
             battery.SwitchFlashlight(!BatteryHandler.isOn);
         }
-        if(audioSource && move != Vector3.zero && !audioSource.isPlaying) { 
+        if(audioSource && speed > 0 && move != Vector3.zero && !audioSource.isPlaying) { 
             audioSource.pitch = Random.Range(1f,1.4f);
             audioSource.Play();}
 

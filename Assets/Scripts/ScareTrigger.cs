@@ -7,25 +7,37 @@ public class ScareTrigger : MonoBehaviour
     public Transform dummy;
     public Transform spawnPosition;
     bool triggered = false;
-    float threshold = 0.15f; 
+    float threshold = 0.0f; 
+
+    public System.Action<ScareTrigger> onScare;
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Player") && !triggered)
         {
             float coin = Random.value;
             if(coin < threshold)
             {
-                Debug.Log("Spawned");
                 Vector3 dir = other.transform.forward - dummy.transform.forward;
-                if(dir.x > 0 && dir.x < 0.3f) dummy.position = spawnPosition.position;
-                triggered = true;
+                Debug.Log(dir);
+                if(dir.x > -0.5 && dir.x < 0.5f){Debug.Log("Spawned"); onScare?.Invoke(this); dummy.position = spawnPosition.position; triggered = true;}
+               
             }
         }
     }
 
-    private IEnumerator Cooldown()
+    public void Cooldown(int seconds)
     {
-        yield return new WaitForSecondsRealtime(5);
-        Debug.Log("Listo");
+        Debug.Log("Trigger Cooldown");
+        StartCoroutine(CooldownSleep(seconds));
+    }
+
+    private IEnumerator CooldownSleep(int seconds)
+    {
+        yield return new WaitForSecondsRealtime(seconds);
         triggered = false;
+    }
+
+    public void SetThreshold(float t)
+    {
+        threshold = t;
     }
 }
