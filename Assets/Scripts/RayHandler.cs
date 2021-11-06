@@ -52,7 +52,7 @@ public class RayHandler : MonoBehaviour
             {
                 if(BatteryHandler.isOn && longData.transform.gameObject.CompareTag("Dummy")) 
                 {
-                    var vanish = hitData.transform.gameObject.GetComponent<VanishObject>();
+                    var vanish = longData.transform.gameObject.GetComponent<VanishObject>();
                     vanish.Interact();
                     longData = new RaycastHit();
                 }

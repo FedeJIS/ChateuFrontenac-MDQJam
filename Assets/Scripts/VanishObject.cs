@@ -7,9 +7,10 @@ public class VanishObject : MonoBehaviour, IInteractable
     AudioSource audioSource;
     SkinnedMeshRenderer skin;
     bool canVanish;
+
+    public Transform restPoint;
     private void Start() {
         audioSource = GetComponent<AudioSource>();
-        skin = GetComponent<SkinnedMeshRenderer>();
         canVanish = true;
     }
     public void Interact()
@@ -17,8 +18,16 @@ public class VanishObject : MonoBehaviour, IInteractable
         if(canVanish)
         {
             canVanish = false;
-            skin.enabled = false;
             audioSource.PlayOneShot(audioSource.clip);
+            transform.position = restPoint.position;
+            StartCoroutine(ScareCooldown());
         }
     }
+
+    IEnumerator ScareCooldown()
+    {
+        yield return new WaitForSeconds(2f);
+        canVanish = true;
+    }
+
 }

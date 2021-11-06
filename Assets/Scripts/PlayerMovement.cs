@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
         Vector3 move = transform.right * x + transform.forward * z;
-        if(GameManager.currentAlfajores > 0)
+        if(GameManager.currentAlfajores < 12)
         {
             if(move != Vector3.zero && Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && canRun)
             {
