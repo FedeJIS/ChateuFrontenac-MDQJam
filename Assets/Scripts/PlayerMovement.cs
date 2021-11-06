@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
             handAnimator.SetBool("isRunning",true); 
             }else
             {
-                if(currentEnergy < sprintEnergy){ Debug.Log(currentEnergy); currentEnergy += Time.deltaTime/2;}
+                if(currentEnergy < sprintEnergy){ currentEnergy += Time.deltaTime/2;}
                 audioSource.clip = sfxClips[0];
                 controller.Move(move * speed * Time.deltaTime);
                 handAnimator.SetBool("isRunning",false); 

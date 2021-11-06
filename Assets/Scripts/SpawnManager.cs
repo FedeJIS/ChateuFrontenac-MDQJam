@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public SpawnPoint[] spawnPoints;
+    public SpawnPoint[] keyPoints;
     public int maxSpawns;
 
     private void Start() {
@@ -21,6 +22,21 @@ public class SpawnManager : MonoBehaviour
             }
             spawnPoints[randomIndex].SetUsed();
             return spawnPoints[randomIndex].GetSpawnpoint();
+        }
+        return null;
+    }
+
+    public Transform GetKeyPoint()
+    {
+        if(keyPoints.Length > 0)
+        {
+            int randomIndex = Random.Range(0, keyPoints.Length);
+            while(keyPoints[randomIndex].IsUsed())
+            {
+                randomIndex = Random.Range(0,keyPoints.Length);
+            }
+            keyPoints[randomIndex].SetUsed();
+            return keyPoints[randomIndex].GetSpawnpoint();
         }
         return null;
     }

@@ -15,6 +15,8 @@ public class BatteryHandler : ResourceHandler
     private bool canPenalty = false;
     public static Action<bool> onSwitch;
 
+    
+
     private void Start() {
         batteryLife = resourceLife;
         audioSource.clip = sfxClips[0];

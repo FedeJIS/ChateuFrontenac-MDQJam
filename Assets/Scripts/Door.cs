@@ -36,7 +36,7 @@ public class Door : MonoBehaviour, IInteractable
                 UIHandler.instance.DisplayConditionMessage(conditionMessage);
                 
                 }
-            else{
+            else{ //Main Door
                     if(conditionMessage == "") UIHandler.instance.DisplayConditionMessage("Debes juntar "+(GameManager.alfajoresToPick - GameManager.currentAlfajores)+" alfajores más antes de salir");
                     else UIHandler.instance.DisplayConditionMessage(conditionMessage);
             }

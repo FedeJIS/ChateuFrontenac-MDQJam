@@ -23,11 +23,9 @@ public class HealthHandler : ResourceHandler
        mentalLife = resourceLife;
        SetAfraid(false);
        SetAfraid(true);
-      
        globalVolume.GetComponent<Volume>().profile.TryGet<ColorCurves>(out color); 
        globalVolume.GetComponent<Volume>().profile.TryGet<ChromaticAberration>(out chroma);
     }
-
 
     public override void GetResource()
     {

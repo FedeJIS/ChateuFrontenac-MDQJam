@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +6,8 @@ public class RayHandler : MonoBehaviour
 {
     Ray ray;
     RaycastHit hitData;
-
     Ray longDistanceRay;
     RaycastHit longData;
-    public Material highlight;
     public static System.Action<GameObject> OnGrabbed;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +28,7 @@ public class RayHandler : MonoBehaviour
             var interactable = hitData.transform.gameObject.GetComponent<IInteractable>();
             if(interactable != null) 
             {
-                if(hitData.distance < 8)
+                if(hitData.distance < 10)
                 {
                     UIHandler.instance.DisplayInteractionMessage();
                     if(Input.GetKeyDown(KeyCode.E))
